@@ -1,0 +1,31 @@
+(function($) {
+
+    "use strict";
+
+    m.app.view("index").on("ready", function() {
+
+        // create the firebase object
+        var firebaseRef = new Firebase('https://burning-fire-1723.firebaseio.com');
+
+       
+        // form on submit event
+        $("#myForm").on("submit", function() {
+            var email = $('#txtEmail').val();
+            var password = $('#txtPass').val();
+            
+firebaseRef.authWithPassword({
+  "email": email,
+  "password": password
+}, function(error, authData) {
+  if (error) {
+    console.log("Login Failed!", error);
+  } else {
+    console.log("Authenticated successfully with payload:", authData);
+    window.location.href = "#userhome";
+  }
+});
+            return false;
+        });
+    });
+
+}(window.$));
